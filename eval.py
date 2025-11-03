@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# coding=UTF-8
+"""
+Author: Wei Luo
+Date: 2025-11-03 13:39:20
+LastEditors: Wei Luo
+LastEditTime: 2025-11-03 13:52:58
+Note: Note
+"""
 import argparse
 import os
 import pickle
@@ -7,9 +16,9 @@ import torch
 from rsl_rl.runners import OnPolicyRunner
 
 import genesis as gs
-from quadenv import quadEnv
-from quadenv2 import QuadEnv_ocp
-from quadenv3 import QuadEnv_ocpv2
+# from quadenv import quadEnv
+# from quadenv2 import QuadEnv_ocp
+# from quadenv3 import QuadEnv_ocpv2
 from quadenv5 import QuadEnv_polyv3
 def get_train_cfg(exp_name):
     train_cfg_dict = {
