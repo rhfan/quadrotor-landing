@@ -1,12 +1,5 @@
 #!/usr/bin/env python
 # coding=UTF-8
-"""
-Author: Wei Luo
-Date: 2025-11-03 13:39:20
-LastEditors: Wei Luo
-LastEditTime: 2025-11-03 13:52:58
-Note: Note
-"""
 import argparse
 import os
 import pickle
@@ -16,10 +9,13 @@ import torch
 from rsl_rl.runners import OnPolicyRunner
 
 import genesis as gs
+
 # from quadenv import quadEnv
 # from quadenv2 import QuadEnv_ocp
 # from quadenv3 import QuadEnv_ocpv2
 from quadenv5 import QuadEnv_polyv3
+
+
 def get_train_cfg(exp_name):
     train_cfg_dict = {
         "algorithm": {
@@ -64,6 +60,8 @@ def get_train_cfg(exp_name):
     }
 
     return train_cfg_dict
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-e", "--exp_name", type=str, default="test_ocpv5_75v3")
@@ -73,8 +71,8 @@ def main():
 
     gs.init()
     log_dir = f"logs/{args.exp_name}"
-    env=QuadEnv_polyv3(1,True)
-    train_cfg=get_train_cfg(args.exp_name)
+    env = QuadEnv_polyv3(1, True)
+    train_cfg = get_train_cfg(args.exp_name)
     runner = OnPolicyRunner(env, train_cfg, log_dir, device=gs.device)
     resume_path = os.path.join(log_dir, f"model_{args.ckpt}.pt")
     runner.load(resume_path)
