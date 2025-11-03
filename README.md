@@ -1,2 +1,2 @@
-# quadrotor-landing
+# quadrotor-control-landing
 
