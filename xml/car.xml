@@ -1,0 +1,65 @@
+<mujoco model="car">
+  <!-- ===== Global config ===== -->
+  <compiler angle="degree" coordinate="local" inertiafromgeom="true"/>
+  <option timestep="0.01" iterations="4"/>
+
+  <!-- ===== Custom parameters ===== -->
+  <custom>
+    <numeric name="init_qpos" data="0 0 0.15 1 0 0 0"/>
+    <numeric name="constraint_stiffness" data="4000"/>
+    <numeric name="constraint_damping" data="10"/>
+  </custom>
+
+  <!-- ===== Defaults ===== -->
+  <default>
+    <joint armature="0.1" damping="0.5" limited="true"/>
+    <geom contype="0" conaffinity="0" condim="3" density="500" friction="1 0.5 0.5" rgba="0.3 0.3 0.3 1"/>
+  </default>
+
+  <!-- ===== Assets ===== -->
+  <asset>
+    <texture builtin="checker" name="texplane" type="2d" width="100" height="100" rgb1="0.2 0.2 0.2" rgb2="0.8 0.8 0.8"/>
+    <material name="MatPlane" texture="texplane" texrepeat="40 40" reflectance="0.2"/>
+    <material name="MatCar" rgba="0.8 0.2 0.2 1"/>
+  </asset>
+
+  <!-- ===== World body ===== -->
+  <worldbody>
+
+    <body name="car_body" pos="0 0 0.15">
+      <camera name="track" mode="trackcom" pos="0 -2 0.5" xyaxes="1 0 0 0 0 1"/>
+      <joint name="root" type="free"/>
+      <geom name="chassis" type="box" size="0.2 0.2 0.05" material="MatCar"/>
+
+      <body name="front_left_wheel" pos="0.2 0.2 -0.15">
+        <joint name="joint_fl" axis="0 1 0" type="hinge" range="-360 360" damping="0.1"/>
+        <geom type="cylinder" size="0.15 0.02" rgba="0.1 0.1 0.8 1" euler="0 90 0"/>
+      </body>
+
+      <body name="front_right_wheel" pos="0.2 -0.2 -0.15">
+        <joint name="joint_fr" axis="0 1 0" type="hinge" range="-360 360" damping="0.1"/>
+        <geom type="cylinder" size="0.15 0.02" rgba="0.1 0.1 0.8 1" euler="0 90 0"/>
+      </body>
+
+      <body name="rear_left_wheel" pos="-0.2 0.2 -0.15">
+        <joint name="joint_rl" axis="0 1 0" type="hinge" range="-360 360" damping="0.1"/>
+        <geom type="cylinder" size="0.15 0.02" rgba="0.1 0.1 0.8 1" euler="0 90 0"/>
+      </body>
+
+      <body name="rear_right_wheel" pos="-0.2 -0.2 -0.15">
+        <joint name="joint_rr" axis="0 1 0" type="hinge" range="-360 360" damping="0.1"/>
+        <geom type="cylinder" size="0.15 0.02" rgba="0.1 0.1 0.8 1" euler="0 90 0"/>
+      </body>
+
+
+    </body>
+  </worldbody>
+
+  <!-- ===== Actuators ===== -->
+  <actuator>
+    <motor joint="joint_fl" gear="150" ctrlrange="-1 1" ctrllimited="true"/>
+    <motor joint="joint_fr" gear="150" ctrlrange="-1 1" ctrllimited="true"/>
+    <motor joint="joint_rl" gear="150" ctrlrange="-1 1" ctrllimited="true"/>
+    <motor joint="joint_rr" gear="150" ctrlrange="-1 1" ctrllimited="true"/>
+  </actuator>
+</mujoco>
